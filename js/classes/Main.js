@@ -16,7 +16,7 @@ class Main {
          */
         let el = document.getElementById("chargement");
         this.mijotage = document.createElement('P');
-        this.mijotage.innerHTML="Mijotage...";
+        this.mijotage.innerHTML = "Mijotage...";
         el.appendChild(this.mijotage);
         /**
          * INITIALISER
@@ -109,8 +109,8 @@ class Main {
         this.plateau.init(this, this.getRandomInt(this.ttImages), this.ttImages);
     }
 
-    chargementImage(pct){
-        this.mijotage.innerHTML="Mijotage à "+pct+"%";
+    chargementImage(pct) {
+        this.mijotage.innerHTML = "Mijotage à " + pct + "%";
     }
 
     /**
@@ -158,6 +158,7 @@ class Main {
          * CHARGER LE PREMIER NIVEAU
          */
         this.premierNiveau();
+        this.enAttente = true;
         /**
          * EFFET INTRO + CHARGEMENT DE WAOUH
          */
@@ -297,13 +298,14 @@ class Main {
         // VIDER
         this.clear();
 
+        console.log(this.tps)
         // FOND HORS/INTRO JEU
-        if (this.tps <= 0 || this.tps === this.car) {
-            this.ctx.globalAlpha = 0.3;        
-        }
+        if (this.tps <= 0 || this.enAttente) {
+            this.ctx.globalAlpha = 0.3;
+        }   
 
         this.ctx.drawImage(this.plateau.getFond(), 0, 0, this.plateau.getWidth(), this.plateau.getHeight());
-        
+
         // COLLISIONS
         this.collisions();
 
@@ -311,7 +313,7 @@ class Main {
         for (let i = 0; i < this.niveau.length; i++) {
             if (this.niveau[i].isVisible()) this.ctx.drawImage(this.niveau[i].getImage(), this.niveau[i].getPositionX(), this.niveau[i].getPositionY(), this.niveau[i].getW(), this.niveau[i].getH());
         }
-        
+
         // RETIRER L'OPACITE SI BESOIN
         this.ctx.globalAlpha = 1;
 
@@ -319,7 +321,7 @@ class Main {
         this.hero.deplacer();
         this.hero.contenu();
         if (this.tps > 0) this.ctx.drawImage(this.hero.getImage(), this.hero.getPositionX(), this.hero.getPositionY(), this.hero.getW(), this.hero.getH());
-        
+
         // SCORE
         this.tourne ?
             this.animerTxtScore() :
@@ -545,9 +547,9 @@ class Main {
     }
 
     /**
-     * RETIRER 1 SECONDE + FAIRE VITE
+     * RETIRER 1 SECONDE + FAIRE VITE + SAVOIR SI C'EST DEMMARÉ
      */
-    tempo() {
+    tempo() {    
         let sc = parseInt(this.tps, 10);
         sc -= 1;
         this.tps = sc.toString();
@@ -559,6 +561,8 @@ class Main {
             this.audio.getPerdu();
             this.timeup();
         }
+        // DEMARRAGE ?
+        if(this.enAttente)this.enAttente=false;
     }
 
     /**
@@ -569,7 +573,7 @@ class Main {
     }
 
     /**
-     * ECOUTEUR CLAVIER DU HERO
+     * ÉCOUTEUR CLAVIER DU HERO
      * @param o L'objet écouté
      */
     clavier(o) {
@@ -606,14 +610,14 @@ class Main {
             }
             e.stopPropagation();
 
-        }, {passive: false});
+        }, { passive: false });
         // ÉCOUTEURS MOBILE NE BOUGE PLUS
         can.addEventListener('touchend', function (e) {
             e.preventDefault();
             // GÉRER LES PAUSES QUAND C'EST PERDU OU GAGNÉ
             if (o.pauseMobile) o.pauseMobile = false;
             e.stopPropagation();
-        }, {passive: false});
+        }, { passive: false });
 
         // ÉCOUTEURS MOBILE COMMENCE À BOUGER
         can.addEventListener('touchstart', function (e) {
@@ -627,7 +631,7 @@ class Main {
                 o.audio.getMusique();
             }
             e.stopPropagation();
-        }, {passive: false});
+        }, { passive: false });
 
 
         // ÉCOUTEURS CLAVIER
