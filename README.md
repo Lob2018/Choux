@@ -36,6 +36,7 @@ Le jeu se lance dans le navigateur, avec le fichier index.html
 ## Versions
 
 ```
+v1.2.0 limiter l'effet d'assombrissement du jeu à 1 seconde sur la première partie
 v1.1.0 Effet de transparence sur l'image quand hors jeu
 ```
 
