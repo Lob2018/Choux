@@ -1,4 +1,4 @@
-# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux/master/img/chou%2B.png) Bienvenue sur le projet Choux !
+# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux/master/img/chou%2B.png) Bienvenue sur le projet Choux (PoC) !
 
 Choux est un jeu, inspiré du film français "La soupe aux choux", réalisé par Jean Girault, sorti en 1981. Le projet a démarré au mois de mai 2018.
 
